@@ -35,33 +35,20 @@
                             <th class="text-center sorting_disabled" rowspan="1" colspan="1">Resolve</th></tr>
                     </thead>
                     <tbody>
-
+                        {% for error in errors %}
                         <tr role="row" class="odd">
-                            <td class="sorting_1">01/4/2017 8:34:52 AM</td>
+                            <td class="sorting_1">{{error.timestamp}}</td>
                             <td>
-                                <a href="{% url 'project_issue_detail' 1 1 %}">Hola is not defined</a>
+                                <a href="{% url 'project_issue_detail' 1 error.id %}">{{error.data.message}}</a>
                             </td>
-                            <td class="text-right">http://hotelalbirplaya.com/m2/ofertas</td>
+                            <td class="text-right">{{error.data.url}}</td>
                             <td class="text-center">
                               <div role="group" aria-label="Basic example" class="btn-group btn-group-sm">
                                 <button type="button" class="btn btn-outline btn-primary"><i class="ti-eye"></i></button>
                               </div>
                             </td>
                         </tr>
-
-                        <tr role="row" class="odd">
-                            <td class="sorting_1">01/4/2017 8:34:52 AM</td>
-                            <td>
-                                <a href="{% url 'project_issue_detail' 1 1 %}">Hola is not defined</a>
-                            </td>
-                            <td class="text-right">http://hotelalbirplaya.com/m2/ofertas</td>
-                            <td class="text-center">
-                              <div role="group" aria-label="Basic example" class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-outline btn-primary"><i class="ti-eye"></i></button>
-                              </div>
-                            </td>
-                        </tr>
-
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

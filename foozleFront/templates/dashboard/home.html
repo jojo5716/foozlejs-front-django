@@ -17,11 +17,13 @@
 {% endblock breadcrumbs%}
 
 {% block content %}
+
 <div class="col-md-3 col-sm-6">
+    {% for project in projects %}
     <div class="widget text-center">
-        <a href="{% url 'project_home' id_test %}">
+        <a href="{% url 'project_home' project.id %}">
             <div class="widget-body">
-                <div class="fs-36 fw-600 mb-20 counter">Webmobile 2.0</div>
+                <div class="fs-36 fw-600 mb-20 counter">{{project.name}}</div>
                 <div id="esp-comment" data-percent="75"  class="easy-pie-chart fs-36">
                     <i class="ti-comment-alt text-muted"></i>
                     <canvas height="140" width="140"></canvas>
@@ -29,15 +31,16 @@
                 <div class="clearfix mt-20">
                     <div class="pull-left">
                         <div class="fs-12">Resolved issues</div>
-                        <div class="text-success">5</div>
+                        <div class="text-success">{{project.errors_resolved}}</div>
                     </div>
                     <div class="pull-right">
                         <div class="fs-12">Unresolved Issues</div>
-                        <div class="text-danger">3</div>
+                        <div class="text-danger">{{project.errors_unresolved}}</div>
                     </div>
                 </div>
             </div>
         </a>
     </div>
+    {% endfor %}
 </div>
 {% endblock content %}

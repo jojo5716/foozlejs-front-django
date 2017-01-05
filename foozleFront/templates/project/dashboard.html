@@ -42,40 +42,25 @@
             <div class="widget-body">
                 <div class="widget no-border">
                     <ul class="activity-list list-unstyled mb-0">
+                        {% for error in errors %}
                         <li class="activity-danger">
-                            <div class="media">
-                                <div class="media-left">
-                                    <time datetime="2015-12-10T20:50:48+07:00" class="fs-30 fw-500">07:30<span class="fs-14 text-muted">PM</span></time>
+                            <a href="{% url 'project_issue_detail' project error.id%}">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <time datetime="2015-12-10T20:50:48+07:00" class="fs-30 fw-500">
+                                            {{error.timestamp_to_hour}}
+                                            <span class="fs-14 text-muted">{{error.pm_or_am}}</span>
+                                        </time>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="media-heading">{{error.data.message}}</h5>
+                                        <p class="text-muted">{{error.data.url}}:{{error.data.line}}</p>
+                                    </div>
                                 </div>
-                                <div class="media-body">
-                                    <h5 class="media-heading">Hola is not defined...</h5>
-                                    <p class="text-muted">http://www.hotelalbirplaya.com/m2</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="activity-danger">
-                            <div class="media">
-                                <div class="media-left">
-                                    <time datetime="2015-12-10T20:50:48+07:00" class="fs-30 fw-500">08:45<span class="fs-14 text-muted">PM</span></time>
-                                </div>
-                                <div class="media-body">
-                                    <h5 class="media-heading">Hola is not defined...</h5>
-                                    <p class="text-muted">http://www.hotelalbirplaya.com/m2</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="activity-danger">
-                            <div class="media">
-                                <div class="media-left">
-                                    <time datetime="2015-12-10T20:50:48+07:00" class="fs-30 fw-500">08:45<span class="fs-14 text-muted">PM</span></time>
-                                </div>
-                                <div class="media-body">
-                                    <h5 class="media-heading">Hola is not defined...</h5>
-                                    <p class="text-muted">http://www.hotelalbirplaya.com/m2</p>
-                                </div>
-                            </div>
-                        </li>
+                            </a>
 
+                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
