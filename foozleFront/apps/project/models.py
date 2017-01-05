@@ -20,6 +20,7 @@ class Project(models.Model):
     def errors_unresolved(self):
         return self.error_set.filter(resolved=False).count()
 
+
 class Error(models.Model):
     project = models.ForeignKey(Project)
     timestamp = models.DateTimeField(auto_now_add=True)

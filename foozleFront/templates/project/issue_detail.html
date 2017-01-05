@@ -66,7 +66,11 @@
             <div class="widget-heading clearfix">
                 <h3 class="widget-title pull-left">General information</h3>
                 <ul class="widget-tools pull-right list-inline">
-                    <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
+                    <li>
+                        <a href="javascript:;" class="widget-collapse">
+                            <i class="ti-angle-up"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <div class="widget-body">
@@ -74,19 +78,19 @@
                     <tbody>
                         <tr>
                             <td class="left"><strong>URL</strong></td>
-                            <td class="right">http://www.hotelalbirplaya.com/m2/ofertas</td>
+                            <td class="right">{{error.data.url}}</td>
                         </tr>
                         <tr>
                             <td class="left"><strong>Timestamp</strong></td>
-                            <td class="right">1/4/2017 8:34:52 AM</td>
+                            <td class="right">{{error.timestamp}}</td>
                         </tr>
                         <tr>
                             <td class="left"><strong>Time On Page</strong></td>
-                            <td class="right">2.605 seconds</td>
+                            <td class="right">{{error.data.environment.age}}</td>
                         </tr>
                         <tr>
                             <td class="left"><strong>Visitor time</strong></td>
-                            <td class="right"><strong>1/4/2017 8:40:25 AM</strong></td>
+                            <td class="right"><strong>{{error.data.timestamp}}</strong></td>
                         </tr>
                         <tr>
                             <td class="left"><strong>Browser</strong></td>
@@ -101,7 +105,7 @@
                             <td class="right"><strong>80.24.20.99</strong></td>
                         <tr>
                             <td class="left"><strong>Viewport</strong></td>
-                            <td class="right"><strong>505 x 875</strong></td>
+                            <td class="right"><strong>{{error.data.environment.viewportWidth}}x{{error.data.environment.viewportHeight}}</strong></td>
                         </tr>
                     </tbody>
                 </table>

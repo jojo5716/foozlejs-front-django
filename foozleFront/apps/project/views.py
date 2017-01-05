@@ -22,8 +22,6 @@ class RecentProject(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(RecentProject, self).get_context_data()
 
-
-        context['project_id'] = 1
         context["errors"] = Error.objects.filter(project=1)
 
         return context
@@ -32,6 +30,13 @@ class RecentProject(TemplateView):
 class IssueDetailProject(TemplateView):
     template_name = 'project/issue_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(IssueDetailProject, self).get_context_data()
+
+        context["error"] = Error.objects.get(project=kwargs['id_project'],
+                                             id=kwargs['id_issue'])
+
+        return context
 
 def CaptureError(request):
     token = request.GET.get('token')
