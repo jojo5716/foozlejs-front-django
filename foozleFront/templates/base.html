@@ -1,0 +1,115 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FoozleJS</title>
+    <!-- PACE-->
+    <link rel="stylesheet" type="text/css" href="/static/css/libs/pace-theme-flash.css">
+    <script type="text/javascript" src="./static/js/libs/pace.min.js"></script>
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="/static/css/libs/bootstrap.min.css">
+    <!-- Fonts-->
+    <link rel="stylesheet" type="text/css" href="/static/css/libs/themify-icons.css">
+    <!-- Animo.js-->
+    <link rel="stylesheet" type="text/css" href="/static/css/libs/animate-animo.min.css">
+    <!-- Flag Icons-->
+    <link rel="stylesheet" type="text/css" href="/static/css/libs/flag-icon.min.css">
+    <!-- Bootstrap Progressbar-->
+    <link rel="stylesheet" type="text/css" href="/static/css/libs/bootstrap-progressbar-3.3.4.min.css">
+    <!-- Primary Style-->
+    <link rel="stylesheet" type="text/css" href="/static/css/libs/first-layout.css">
+  </head>
+  <body data-sidebar-color="sidebar-light" class="sidebar-light      pace-done">
+        <div class="pace  pace-inactive">
+            <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+                <div class="pace-progress-inner"></div>
+            </div>
+            <div class="pace-activity"></div>
+        </div>
+        <!-- Header start-->
+        <header>
+            <a href="index.html" class="brand pull-left">
+                <h1>FoozleJS</h1>
+            </a>
+
+            <ul class="notification-bar list-inline pull-right">
+                <li class="visible-xs">
+                    <a href="javascript:;" role="button" class="header-icon search-bar-toggle">
+                        <i class="ti-search"></i>
+                    </a>
+                </li>
+
+                <li class="dropdown visible-lg visible-md">
+                    <ul aria-labelledby="dropdownMenu2" class="dropdown-menu fs-12 fadeInDown animated" style="animation-duration: 0.2s; animation-delay: 0s; animation-timing-function: linear; animation-iteration-count: 1;">
+                        <li><a href="profile.html"><i class="ti-user mr-5"></i> My Profile</a></li>
+                        <li><a href="profile.html"><i class="ti-settings mr-5"></i> Account Settings</a></li>
+                        <li><a href="login-v2.html"><i class="ti-power-off mr-5"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </header>
+        <!-- Header end-->
+
+        <div class="main-container">
+            <!-- Main Sidebar start-->
+            <aside data-mcs-theme="minimal-dark" class="main-sidebar mCustomScrollbar _mCS_2 mCS-autoHide">
+                <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" style="max-height: none;" tabindex="0">
+                    <div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+
+                        <ul class="list-unstyled navigation mb-0">
+                            <li class="sidebar-category">Menu</li>
+
+                            <li class="panel"><a role="button" data-toggle="collapse" data-parent=".navigation" href="#collapse1" aria-expanded="false" aria-controls="collapse1" class="bubble collapsed"><i class="ti-home"></i><span class="sidebar-title">Dashboard</span><span class="badge bg-danger">2</span></a>
+                                <ul id="collapse1" class="list-unstyled collapse">
+                                    <li><a href="index.html">Dashboard v1</a></li>
+                                    <li><a href="index-v2.html">Dashboard v2</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="panel">
+                                <a href="widgets.html">
+                                    <i class="ti-panel"></i>
+                                    <span class="sidebar-title">Widgets </span>
+                                    <span class="label label-outline label-danger">Updated</span>
+                                </a>
+                            </li>
+
+                            <li class="panel">
+                                <a role="button" data-toggle="collapse" data-parent=".navigation" href="#collapse3" aria-expanded="false" aria-controls="collapse3" class="collapsed">
+                                    <i class="ti-shopping-cart"></i>
+                                    <span class="sidebar-title">E-commerce</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Sidebar end-->
+            <div class="page-container">
+                {% block breadcrumbs %} {% endblock breadcrumbs%}
+                <div class="page-content container-fluid"></div>
+                <div class="footer">
+                    2017 ©
+                    <a href="#">FoozleJS</a> by
+                    <a href="#" target="_blank">Jonathan Rodríguez.</a>
+                </div>
+            </div>
+        </div>
+
+    <!-- jQuery-->
+    <script type="text/javascript" src="/static/js/libs/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript-->
+    <script type="text/javascript" src="/static/js/libs/bootstrap.min.js"></script>
+    <!-- Animo.js-->
+    <script type="text/javascript" src="/static/js/libs/animo.min.js"></script>
+    <!-- Bootstrap Progressbar-->
+    <script type="text/javascript" src="/static/js/libs/bootstrap-progressbar.min.js"></script>
+    <!-- jQuery Easy Pie Chart-->
+    <script type="text/javascript" src="/static/js/libs/jquery.easypiechart.min.js"></script>
+    <!-- Custom JS-->
+    <script type="text/javascript" src="/static/js/libs/app.js"></script>
+    <script type="text/javascript" src="/static/js/libs/demo.js"></script>
+
+</body></html>
