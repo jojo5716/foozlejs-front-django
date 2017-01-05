@@ -59,25 +59,48 @@
                         <ul class="list-unstyled navigation mb-0">
                             <li class="sidebar-category">Menu</li>
 
-                            <li class="panel"><a role="button" data-toggle="collapse" data-parent=".navigation" href="#collapse1" aria-expanded="false" aria-controls="collapse1" class="bubble collapsed"><i class="ti-home"></i><span class="sidebar-title">Dashboard</span><span class="badge bg-danger">2</span></a>
-                                <ul id="collapse1" class="list-unstyled collapse">
-                                    <li><a href="index.html">Dashboard v1</a></li>
-                                    <li><a href="index-v2.html">Dashboard v2</a></li>
-                                </ul>
+                            <li class="panel">
+                                <a href="#" class="bubble collapsed">
+                                    <i class="ti-home"></i>
+                                    <span class="sidebar-title">Dashboard</span>
+                                </a>
                             </li>
 
                             <li class="panel">
                                 <a href="widgets.html">
                                     <i class="ti-panel"></i>
-                                    <span class="sidebar-title">Widgets </span>
-                                    <span class="label label-outline label-danger">Updated</span>
+                                    <span class="sidebar-title">Recent </span>
                                 </a>
                             </li>
 
                             <li class="panel">
-                                <a role="button" data-toggle="collapse" data-parent=".navigation" href="#collapse3" aria-expanded="false" aria-controls="collapse3" class="collapsed">
+                                <a href="#" class="collapsed">
                                     <i class="ti-shopping-cart"></i>
-                                    <span class="sidebar-title">E-commerce</span>
+                                    <span class="sidebar-title">URL</span>
+                                </a>
+                            </li>
+                            <li class="panel">
+                                <a href="#" class="collapsed">
+                                    <i class="ti-shopping-cart"></i>
+                                    <span class="sidebar-title">Browser</span>
+                                </a>
+                            </li>
+                            <li class="panel">
+                                <a href="#" class="collapsed">
+                                    <i class="ti-shopping-cart"></i>
+                                    <span class="sidebar-title">User</span>
+                                </a>
+                            </li>
+                            <li class="panel">
+                                <a href="#" class="collapsed">
+                                    <i class="ti-shopping-cart"></i>
+                                    <span class="sidebar-title">Metadata</span>
+                                </a>
+                            </li>
+                            <li class="panel">
+                                <a href="#" class="collapsed">
+                                    <i class="ti-shopping-cart"></i>
+                                    <span class="sidebar-title">Daily</span>
                                 </a>
                             </li>
                         </ul>
@@ -89,9 +112,11 @@
             <!-- Main Sidebar end-->
             <div class="page-container">
                 {% block breadcrumbs %} {% endblock breadcrumbs%}
-                <div class="page-content container-fluid"></div>
+                <div class="page-content container-fluid">
+                    {% block content %} {% endblock content %}
+                </div>
                 <div class="footer">
-                    2017 ©
+                    {% now 'Y' %} ©
                     <a href="#">FoozleJS</a> by
                     <a href="#" target="_blank">Jonathan Rodríguez.</a>
                 </div>
@@ -111,5 +136,6 @@
     <!-- Custom JS-->
     <script type="text/javascript" src="/static/js/libs/app.js"></script>
     <script type="text/javascript" src="/static/js/libs/demo.js"></script>
+    {% block extrajs %}{% endblock extrajs %}
 
 </body></html>
