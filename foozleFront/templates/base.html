@@ -60,14 +60,14 @@
                             <li class="sidebar-category">Menu</li>
 
                             <li class="panel">
-                                <a href="#" class="bubble collapsed">
+                                <a href="{% url 'project_home' project.id %}" class="bubble collapsed">
                                     <i class="ti-home"></i>
                                     <span class="sidebar-title">Dashboard</span>
                                 </a>
                             </li>
 
                             <li class="panel">
-                                <a href="{% url 'project_recent' 1 %}">
+                                <a href="{% url 'project_recent' project.id %}">
                                     <i class="ti-panel"></i>
                                     <span class="sidebar-title">Recent </span>
                                 </a>

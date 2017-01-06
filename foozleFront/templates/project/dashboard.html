@@ -7,7 +7,7 @@
             <h4 class="mt-0 mb-5">Dashboard</h4>
             <ol class="breadcrumb mb-0">
                 <li><a href="#">Login</a></li>
-                <li><a href="#">Select Webmobile 2.0 project</a></li>
+                <li><a href="#">{{project.name}} project</a></li>
                 <li class="active">Dashboard</li>
             </ol>
         </div>
@@ -60,7 +60,7 @@
                     <ul class="activity-list list-unstyled mb-0">
                         {% for error in errors %}
                         <li class="activity-danger">
-                            <a href="{% url 'project_issue_detail' project error.id%}">
+                            <a href="{% url 'project_issue_detail' project.id error.id%}">
                                 <div class="media">
                                     <div class="media-left">
                                         <time datetime="2015-12-10T20:50:48+07:00" class="fs-30 fw-500">

@@ -7,8 +7,8 @@
             <h4 class="mt-0 mb-5">Dashboard</h4>
             <ol class="breadcrumb mb-0">
                 <li><a href="#">Login</a></li>
-                <li><a href="#">Select Webmobile 2.0 project</a></li>
-                <li class="active">Dashboard</li>
+                <li><a href="#">{{project.name}} project</a></li>
+                <li class="active">Recent issues</li>
             </ol>
         </div>
     </div>
@@ -32,19 +32,23 @@
                             <th class="sorting_asc" rowspan="1" colspan="1" >Timestamp</th>
                             <th class="sorting" rowspan="1" colspan="1"  >Message</th>
                             <th class="text-right sorting" rowspan="1" colspan="1" >URL</th>
-                            <th class="text-center sorting_disabled" rowspan="1" colspan="1">Resolve</th></tr>
+                            <th class="text-center sorting_disabled" rowspan="1" colspan="1">Resolved</th></tr>
                     </thead>
                     <tbody>
                         {% for error in errors %}
                         <tr role="row" class="odd">
                             <td class="sorting_1">{{error.timestamp}}</td>
                             <td>
-                                <a href="{% url 'project_issue_detail' 1 error.id %}">{{error.data.message}}</a>
+                                <a href="{% url 'project_issue_detail' project.id error.id %}">{{error.data.message}}</a>
                             </td>
                             <td class="text-right">{{error.data.url}}</td>
                             <td class="text-center">
-                              <div role="group" aria-label="Basic example" class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-outline btn-primary"><i class="ti-eye"></i></button>
+                              <div role="group" class="btn-group btn-group-sm">
+                                {% if error.resolved %}
+                                    <i class="ti-eye text-success"></i>
+                                {% else %}
+                                    <i class="ti-heart-broken text-danger"></i>
+                                {% endif %}
                               </div>
                             </td>
                         </tr>

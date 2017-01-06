@@ -15,7 +15,7 @@ class HomeProject(TemplateView):
 
         context['errors'] = self.errors.filter(resolved=False)[:6]
 
-        context['project'] = kwargs['id_project']
+        context['project'] = get_project_by_id(kwargs['id_project'])
 
         chart_browser, chart_urls = self.get_charts()
         context['chart_browser'] = chart_browser
@@ -63,6 +63,7 @@ class RecentProject(TemplateView):
         context = super(RecentProject, self).get_context_data()
 
         context["errors"] = Error.objects.filter(project=kwargs["id_project"]).order_by('-id')
+        context['project'] = get_project_by_id(kwargs['id_project'])
 
         return context
 
@@ -72,14 +73,21 @@ class IssueDetailProject(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IssueDetailProject, self).get_context_data()
+        
+        context['project'] = get_project_by_id(kwargs['id_project'])
 
-        context["error"] = Error.objects.get(project=kwargs['id_project'],
-                                             id=kwargs['id_issue'])
+        try:
+            context["error"] = Error.objects.get(project=kwargs['id_project'],
+                                                id=kwargs['id_issue'])
+        except Error.DoesNotExist:
+            pass
 
         return context
 
 def CaptureError(request):
     token = request.GET.get('token')
+    success = True
+
     if request.body and token:
         try:
             project = Project.objects.get(token=token, active=True)
@@ -91,10 +99,16 @@ def CaptureError(request):
             error.data = json.loads(request.body)
             error.save()
 
-            response = HttpResponse(json.dumps({"ok": True}))
-            response["Access-Control-Allow-Origin"] = "*"
-            response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-            response["Access-Control-Max-Age"] = "1000"
-            response["Access-Control-Allow-Headers"] = "*"
+        response = HttpResponse(json.dumps({"success": success}))
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+        response["Access-Control-Max-Age"] = "1000"
+        response["Access-Control-Allow-Headers"] = "*"
 
-            return response
+        return response
+
+def get_project_by_id(project_id, active=True):
+    try:
+        return Project.objects.get(id=project_id, active=active)
+    except Project.DoesNotExist:
+        return None
