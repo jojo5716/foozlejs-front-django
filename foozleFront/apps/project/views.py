@@ -3,6 +3,7 @@ import httpagentparser
 from datetime import datetime
 from django.http import HttpResponse
 from django.views.generic import TemplateView
+from django.db.models import Max, Min
 from .models import Project, Error
 from ..utils.charts import chart_by_top_browser
 
@@ -122,10 +123,13 @@ class UrlDetailProject(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(UrlDetailProject, self).get_context_data()
 
+        url = self.request.GET.get("url")
         project = get_project_by_id(kwargs['id_project'])
-        errors = project.error_set.filter(data__url=self.request.GET.get("url"))
+        errors = project.error_set.filter(data__url=url)
 
+        context['url'] = url
         context['project'] = project
+        context['errors_seen'] = errors.aggregate(Min("timestamp"), Max("timestamp"))
         context['errors'] = errors.order_by('-timestamp')
         context['chart_urls'] = self.get_errors(errors)
         context['chart_browsers'] = chart_by_top_browser(errors)

@@ -10,7 +10,7 @@ def chart_by_top_browser(errors):
 		if browser not in data:
 			 data[browser] = 0
 
-	data[browser] += 1
+		data[browser] += 1
 
 	return data
 

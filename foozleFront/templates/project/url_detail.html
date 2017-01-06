@@ -86,10 +86,53 @@
             </div>
             <div class="widget-body">
                 <div class="widget no-border">
- 
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="left"><strong>First Seen</strong></td>
+                                <td class="right">{{errors_seen.timestamp__min}}</td>
+                            </tr>
+                            <tr>
+                                <td class="left"><strong>Last Seen</strong></td>
+                                <td class="right">{{errors_seen.timestamp__max}}</td>
+                            </tr>   
+                            <tr>
+                                <td class="left"><strong>URL</strong></td>
+                                <td class="right">{{url}}</td>
+                            </tr>
+                            <tr>
+                                <td class="left"><strong>Total browsers</strong></td>
+                                <td class="right">{{chart_browsers.items|length}}</td>
+                            </tr>
+                        </tbody>    
+                    </table>
                 </div>
             </div>
         </div>
+
+        <div class="widget">
+            <div class="widget-heading clearfix">
+                <h3 class="widget-title pull-left">Top browsers</h3>
+                <ul class="widget-tools pull-right list-inline">
+                    <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
+                </ul>
+            </div>
+            <div class="widget-body">
+                <div class="widget no-border">
+                     <table class="table">
+                        <tbody>
+                            {% for browser, errors in chart_browsers.items %}
+                            <tr>
+                                <td class="left"><strong>{{browser}}</strong></td>
+                                <td class="right">{{errors}}</td>
+                            </tr>
+                           {% endfor %}
+                        </tbody>    
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>   
 </div>
 {% endblock content %}
