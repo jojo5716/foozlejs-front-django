@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block breadcrumbs %}
+<div class="page-header clearfix">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="mt-0 mb-5">Dashboard</h4>
+            <ol class="breadcrumb mb-0">
+                <li><a href="#">Login</a></li>
+                <li><a href="#">{{project.name}} project</a></li>
+                <li class="active">URL</li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs%}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-heading clearfix">
+                <h3 class="widget-title pull-left">Errors Grouped by url</h3>
+                <ul class="widget-tools pull-right list-inline">
+                    <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
+                </ul>
+            </div>
+            <div class="widget-body">
+                <table id="product-list" style="width: 100%;" class="table table-hover dt-responsive nowrap dataTable no-footer dtr-inline" >
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" rowspan="1" colspan="1" >URL</th>
+                            <th class="sorting" rowspan="1" colspan="1"  >Errors</th>
+                            <th class="text-right sorting" rowspan="1" colspan="1" >Last seen</th>
+                    </thead>
+                    <tbody>
+                        {% for key, values in errors.items %}
+                        <tr role="row" class="odd">
+                            <td class="sorting_1">
+                                <a href="{% url 'project_url_detail' project.id %}?url={{key}}">{{key}}</a>
+                            </td>
+                            <td>
+                                {{values.errors}}
+                            </td>
+                            <td class="text-right">{{values.lastView}}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

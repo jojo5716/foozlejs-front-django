@@ -1,9 +1,10 @@
 import json
 import httpagentparser
+from datetime import datetime
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from .models import Project, Error
-
+from ..utils.charts import chart_by_top_browser
 
 class HomeProject(TemplateView):
     template_name = 'project/dashboard.html'
@@ -73,7 +74,7 @@ class IssueDetailProject(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IssueDetailProject, self).get_context_data()
-        
+
         context['project'] = get_project_by_id(kwargs['id_project'])
 
         try:
@@ -83,6 +84,66 @@ class IssueDetailProject(TemplateView):
             pass
 
         return context
+
+
+class UrlProject(TemplateView):
+    template_name = "project/url.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(UrlProject, self).get_context_data()
+
+        project = get_project_by_id(kwargs['id_project'])
+
+        context['project'] = project
+        context['errors'] = self.get_errors_url(project.error_set.filter(resolved=False))
+
+        return context
+
+    def get_errors_url(self, errors):
+        data = {}
+
+        for error in errors:
+            url = error.data["url"]
+
+            if url not in data:
+                data[url] = { "errors": 0, "lastView": error.timestamp}
+
+            data[url]["errors"] += 1
+
+            if error.timestamp >= data[url]["lastView"]:
+                data[url]["lastView"] = error.timestamp
+
+        return data
+
+
+class UrlDetailProject(TemplateView):
+    template_name = "project/url_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(UrlDetailProject, self).get_context_data()
+
+        project = get_project_by_id(kwargs['id_project'])
+        errors = project.error_set.filter(data__url=self.request.GET.get("url"))
+
+        context['project'] = project
+        context['errors'] = errors.order_by('-timestamp')
+        context['chart_urls'] = self.get_errors(errors)
+        context['chart_browsers'] = chart_by_top_browser(errors)
+
+        return context
+
+    def get_errors(self, errors):
+        data = {}
+        for error in errors:
+            timestamp = error.data["timestamp"].split("T")[0]
+
+            if timestamp not in data:
+                data[timestamp] = {"errors": 0}
+
+            data[timestamp]["errors"] += 1
+
+        return data
+
 
 def CaptureError(request):
     token = request.GET.get('token')

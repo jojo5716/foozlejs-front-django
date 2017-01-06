@@ -15,6 +15,14 @@ def seconds(timestampFail, timestampStep):
 	return  (dateStep - dateFailed).total_seconds()
 
 
+def date(timestamp):
+	return timestamp.split("T")[0]
+
+
+def timestamp_hour(timestamp):
+	return timestamp.strftime("%H:%M")
+
 
 register.filter('hour', hour)
 register.filter('seconds', seconds)
+register.filter('timestamp_hour', timestamp_hour)

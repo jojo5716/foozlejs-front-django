@@ -19,7 +19,7 @@
     <!-- Primary Style-->
     <link rel="stylesheet" type="text/css" href="/static/css/libs/first-layout.css">
   </head>
-  <body data-sidebar-color="sidebar-light" class="sidebar-light      pace-done">
+  <body data-sidebar-color="sidebar-light" class="sidebar-light pace-done">
         <div class="pace  pace-inactive">
             <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
                 <div class="pace-progress-inner"></div>
@@ -28,19 +28,14 @@
         </div>
         <!-- Header start-->
         <header>
-            <a href="index.html" class="brand pull-left">
+            <a href="#" class="brand pull-left">
                 <h1>FoozleJS</h1>
             </a>
 
             <ul class="notification-bar list-inline pull-right">
-                <li class="visible-xs">
-                    <a href="javascript:;" role="button" class="header-icon search-bar-toggle">
-                        <i class="ti-search"></i>
-                    </a>
-                </li>
 
                 <li class="dropdown visible-lg visible-md">
-                    <ul aria-labelledby="dropdownMenu2" class="dropdown-menu fs-12 fadeInDown animated" style="animation-duration: 0.2s; animation-delay: 0s; animation-timing-function: linear; animation-iteration-count: 1;">
+                    <ul aria-labelledby="dropdownMenu2" class="dropdown-menu fs-12 fadeInDown animated" >
                         <li><a href="profile.html"><i class="ti-user mr-5"></i> My Profile</a></li>
                         <li><a href="profile.html"><i class="ti-settings mr-5"></i> Account Settings</a></li>
                         <li><a href="login-v2.html"><i class="ti-power-off mr-5"></i> Logout</a></li>
@@ -52,9 +47,9 @@
 
         <div class="main-container">
             <!-- Main Sidebar start-->
-            <aside data-mcs-theme="minimal-dark" class="main-sidebar mCustomScrollbar _mCS_2 mCS-autoHide">
-                <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" style="max-height: none;" tabindex="0">
-                    <div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+            <aside data-mcs-theme="minimal-dark" class="main-sidebar _mCS_2 mCS-autoHide">
+                <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" >
+                    <div id="mCSB_2_container" class="mCSB_container"  dir="ltr">
 
                         <ul class="list-unstyled navigation mb-0">
                             <li class="sidebar-category">Menu</li>
@@ -74,7 +69,7 @@
                             </li>
 
                             <li class="panel">
-                                <a href="#" class="collapsed">
+                                <a href="{% url 'project_url' project.id %}" class="collapsed">
                                     <i class="ti-shopping-cart"></i>
                                     <span class="sidebar-title">URL</span>
                                 </a>

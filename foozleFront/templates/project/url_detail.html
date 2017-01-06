@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load time %}
+
 
 {% block breadcrumbs %}
 <div class="page-header clearfix">
@@ -8,7 +10,7 @@
             <ol class="breadcrumb mb-0">
                 <li><a href="#">Login</a></li>
                 <li><a href="#">{{project.name}} project</a></li>
-                <li class="active">Dashboard</li>
+                <li class="active">URL</li>
             </ol>
         </div>
     </div>
@@ -16,12 +18,13 @@
 {% endblock breadcrumbs%}
 
 {% block content %}
+
 <div class="row">
     <div class="col-md-7">
         <div class="col-md-12">
             <div class="widget">
                 <div class="widget-heading clearfix">
-                    <h3 class="widget-title pull-left">Issues per url</h3>
+                    <h3 class="widget-title pull-left">Issues per day</h3>
                     <ul class="widget-tools pull-right list-inline">
                         <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
                     </ul>
@@ -35,13 +38,39 @@
         <div class="col-md-12">
             <div class="widget">
                 <div class="widget-heading clearfix">
-                    <h3 class="widget-title pull-left">Issues per browsers</h3>
+                    <h3 class="widget-title pull-left">Errors</h3>
                     <ul class="widget-tools pull-right list-inline">
                         <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
                     </ul>
                 </div>
                 <div class="widget-body">
-                    <div id="piechart"></div>
+                    <table id="product-list" style="width: 100%;" class="table table-hover dt-responsive nowrap dataTable no-footer dtr-inline" >
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_asc" rowspan="1" colspan="1" >Timestamp</th>
+                                <th class="sorting" rowspan="1" colspan="1"  >Message</th>
+                                <th class="text-center sorting_disabled" rowspan="1" colspan="1">Resolved</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for error in errors %}
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">{{error.timestamp|date}} {{error.timestamp|timestamp_hour}}</td>
+                                <td>
+                                    <a href="{% url 'project_issue_detail' project.id error.id %}">{{error.data.message}}</a>
+                                </td>
+                                <td class="text-center">
+                                  <div role="group" class="btn-group btn-group-sm">
+                                    {% if error.resolved %}
+                                        <i class="ti-eye text-success"></i>
+                                    {% else %}
+                                        <i class="ti-heart-broken text-danger"></i>
+                                    {% endif %}
+                                  </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -50,40 +79,21 @@
     <div class="col-md-5">
         <div class="widget">
             <div class="widget-heading clearfix">
-                <h3 class="widget-title pull-left">Recent issues</h3>
+                <h3 class="widget-title pull-left">General information</h3>
                 <ul class="widget-tools pull-right list-inline">
                     <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
                 </ul>
             </div>
             <div class="widget-body">
                 <div class="widget no-border">
-                    <ul class="activity-list list-unstyled mb-0">
-                        {% for error in errors %}
-                        <li class="activity-danger">
-                            <a href="{% url 'project_issue_detail' project.id error.id%}">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <time datetime="2015-12-10T20:50:48+07:00" class="fs-30 fw-500">
-                                            {{error.timestamp_to_hour}}
-                                            <span class="fs-14 text-muted">{{error.pm_or_am}}</span>
-                                        </time>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="media-heading">{{error.data.message}}</h5>
-                                        <p class="text-muted">{{error.data.url}}:{{error.data.line}}</p>
-                                    </div>
-                                </div>
-                            </a>
-
-                        </li>
-                        {% endfor %}
-                    </ul>
+ 
                 </div>
             </div>
         </div>
     </div>   
 </div>
 {% endblock content %}
+
 
 {% block extrajs %}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -92,10 +102,10 @@
         google.charts.setOnLoadCallback(drawMultSeries);
 
         function drawMultSeries() {
-              var data = google.visualization.arrayToDataTable([
-                ['URL', 'Resolved', 'Unresolved'],
-               {% for url, errors in chart_urls.items %}
-                    ['{{url}}', {{errors.resolved}}, {{errors.unresolved}}]
+            var data = google.visualization.arrayToDataTable([
+                ['Day', 'Errors'],
+               {% for timestamp, values in chart_urls.items %}
+                    ['{{timestamp}}', {{values.errors}}]
                  {% endfor%}
               ]);
 
@@ -112,26 +122,5 @@
               chart.draw(data, options);
             }
 
-            // Circle chart
-            google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-
-              function drawChart() {
-
-                var data = google.visualization.arrayToDataTable([
-                  ['Task', 'Issues per browser'],
-                 {% for browser, errors in chart_browser.items %}
-                    ['{{browser}}', {{errors}}]
-                 {% endfor%}
-                ]);
-
-                var options = {
-                  title: 'Top browsers'
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-                chart.draw(data, options);
-              }
   </script>
 {% endblock extrajs %}
