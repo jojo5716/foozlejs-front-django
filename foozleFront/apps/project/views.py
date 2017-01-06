@@ -1,4 +1,5 @@
 import json
+import httpagentparser
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from .models import Project, Error
@@ -10,11 +11,49 @@ class HomeProject(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeProject, self).get_context_data()
 
-        context['errors'] = Error.objects.filter(project=kwargs['id_project'],
-                                                 resolved=False).order_by('-id')[:3]
+        self.errors = Error.objects.filter(project=kwargs['id_project']).order_by('-id')
+
+        context['errors'] = self.errors.filter(resolved=False)[:6]
+
         context['project'] = kwargs['id_project']
+
+        chart_browser, chart_urls = self.get_charts()
+        context['chart_browser'] = chart_browser
+        context['chart_urls'] = chart_urls
+
         return context
 
+
+    def get_charts(self):
+        browsers =  {}
+        urls = {}
+
+        for error in self.errors:
+            self.get_errors_by_browser(error, browsers)
+            self.get_errors_by_url(error, urls)
+
+        return browsers, urls
+
+    def get_errors_by_browser(self, error, dic):
+        browser = httpagentparser.simple_detect(error.data['environment']['userAgent'])[1]
+
+        if browser not in dic:
+            dic[browser] = 0
+
+        dic[browser] += 1
+
+        return dic
+
+    def get_errors_by_url(self, error, urls):
+        url = error.data['url']
+
+        if url not in urls:
+            urls[url] = {'resolved': 0, 'unresolved': 0}
+
+        if error.resolved:
+            urls[url]['resolved'] += 1
+        else:
+            urls[url]['unresolved'] += 1
 
 class RecentProject(TemplateView):
     template_name = 'project/recent.html'

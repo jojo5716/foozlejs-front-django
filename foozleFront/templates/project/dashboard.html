@@ -18,15 +18,31 @@
 {% block content %}
 <div class="row">
     <div class="col-md-7">
-        <div class="widget">
-            <div class="widget-heading clearfix">
-                <h3 class="widget-title pull-left">Monthly Issues</h3>
-                <ul class="widget-tools pull-right list-inline">
-                    <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
-                </ul>
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-heading clearfix">
+                    <h3 class="widget-title pull-left">Issues per url</h3>
+                    <ul class="widget-tools pull-right list-inline">
+                        <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
+                    </ul>
+                </div>
+                <div class="widget-body">
+                    <div id="chart_div"></div>
+                </div>
             </div>
-            <div class="widget-body">
-                <div id="chart_div" ></div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-heading clearfix">
+                    <h3 class="widget-title pull-left">Issues per browsers</h3>
+                    <ul class="widget-tools pull-right list-inline">
+                        <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
+                    </ul>
+                </div>
+                <div class="widget-body">
+                    <div id="piechart"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -65,77 +81,48 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-md-7">
-        <div class="widget">
-            <div class="widget-heading clearfix">
-                <h3 class="widget-title pull-left">Monthly Issues</h3>
-                <ul class="widget-tools pull-right list-inline">
-                    <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
-                </ul>
-            </div>
-            <div class="widget-body">
-                <div id="piechart" style="width: 900px; height: 500px;"></div>
-            </div>
-        </div>
-    </div>
+    </div>   
 </div>
 {% endblock content %}
 
 {% block extrajs %}
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-google.charts.load('current', {packages: ['corechart', 'line']});
-google.charts.setOnLoadCallback(drawBasic);
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawMultSeries);
 
-function drawBasic() {
-
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'X');
-      data.addColumn('number', 'Issues');
-
-      data.addRows([
-        [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
-        [6, 11],  [7, 27],  [8, 33],  [9, 40],  [10, 32], [11, 35],
-        [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
-        [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
-        [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
-        [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
-        [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
-        [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
-        [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
-        [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
-        [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
-        [66, 70], [67, 72], [68, 75], [69, 80]
+function drawMultSeries() {
+      var data = google.visualization.arrayToDataTable([
+        ['URL', 'Resolved', 'Unresolved'],
+       {% for url, errors in chart_urls.items %}
+            ['{{url}}', {{errors.resolved}}, {{errors.unresolved}}]
+         {% endfor%}
       ]);
 
       var options = {
+        chartArea: {width: '50%'},
         hAxis: {
-          title: 'Days'
-        },
-        vAxis: {
-          title: 'Issues'
+          title: 'Total issues',
+          minValue: 0
         }
+        
       };
 
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
       chart.draw(data, options);
     }
 
-
     // Circle chart
-     google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
       function drawChart() {
 
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Issues per browser'],
-          ['Android',     11],
-          ['Safari',      2],
-          ['IE',  2],
-          ['Opera', 2],
+         {% for browser, errors in chart_browser.items %}
+            ['{{browser}}', {{errors}}]
+         {% endfor%}
         ]);
 
         var options = {
