@@ -1,0 +1,29 @@
+{% load time console  %}
+ 
+ {% for console in error.data.console %}
+     <li class="timeline-item">
+         <div class="timeline-time">
+             <div class="fs-30 fw-500 text-{{console.severity|color}}">
+             {{console.timestamp|hour}}
+             </div>
+             <p>{{console.timestamp|seconds:error.data.timestamp}} sec.</p>
+         </div>
+         <i class=" timeline-icon {{console.severity|color}} {{console.severity|icon}} bg-danger ti-heart-broken"></i>
+         <div class="timeline-content">
+             <div class="panel panel-{{console.severity|color}} mb-0">
+                 <div class="panel-heading">
+                 Console: {{console.severity}}
+                 </div>
+                 <div class="panel-body">
+                     <div class="row">
+                        <div class="col-md-6">
+                             <h5 class="media-heading">Message</h5>
+                             <p class="text-muted">{{console.message}}</p>
+                         </div>
+                        
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </li>
+     {% endfor %}

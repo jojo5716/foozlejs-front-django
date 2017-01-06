@@ -1,0 +1,38 @@
+{% load time %}
+ 
+ {% for step in error.data.visitor %}
+     <li class="timeline-item">
+         <div class="timeline-time">
+             <div class="fs-30 fw-500 {% if forloop.last %}text-danger{%else%}text-success{%endif%}">{{step.timestamp|hour}}</div>
+             <p>{{step.timestamp|seconds:error.data.timestamp}} sec.</p>
+         </div>
+         <i class=" timeline-icon  {% if forloop.last %}bg-danger ti-heart-broken{%else%}bg-success ti-announcement{%endif%}"></i>
+         <div class="timeline-content">
+             <div class="panel  {% if forloop.last %}panel-danger {%else%}panel-success{%endif%} mb-0">
+                 <div class="panel-heading">
+                 Action: {{step.element.tag}} {{step.element.attributes.type}}
+                 </div>
+                 <div class="panel-body">
+                     <div class="row">
+                        <div class="col-md-6">
+                             <h5 class="media-heading">Action</h5>
+                             <p class="text-muted">{{step.action}}</p>
+                         </div>
+                         {% if step.value %}
+                         <div class="col-md-6">
+                             <h5 class="media-heading">Value</h5>
+                             <p class="text-muted">{{step.value}}</p>
+                         </div>
+                         {% endif %}
+                        {% for attr, value in step.element.attributes.items %}
+                         <div class="col-md-6">
+                             <h5 class="media-heading">{{attr}}</h5>
+                             <p class="text-muted">{{value}}</p>
+                         </div>
+                        {% endfor %}
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </li>
+     {% endfor %}

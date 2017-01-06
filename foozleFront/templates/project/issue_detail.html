@@ -30,42 +30,11 @@
             <div class="widget-body">
                 <div class="page-content container-fluid">
                      <ul class="timeline list-unstyled mb-0">
-                     {% for step in error.data.visitor %}
-                         <li class="timeline-item">
-                             <div class="timeline-time">
-                                 <div class="fs-30 fw-500 {% if forloop.last %}text-danger{%else%}text-success{%endif%}">{{step.timestamp|hour}}</div>
-                                 <p>{{step.timestamp|seconds:error.data.timestamp}} sec.</p>
-                             </div>
-                             <i class=" timeline-icon  {% if forloop.last %}bg-danger ti-heart-broken{%else%}bg-success ti-announcement{%endif%}"></i>
-                             <div class="timeline-content">
-                                 <div class="panel  {% if forloop.last %}panel-danger {%else%}panel-success{%endif%} mb-0">
-                                     <div class="panel-heading">
-                                     Action: {{step.element.tag}} {{step.element.attributes.type}}
-                                     </div>
-                                     <div class="panel-body">
-                                         <div class="row">
-                                            <div class="col-md-6">
-                                                 <h5 class="media-heading">Action</h5>
-                                                 <p class="text-muted">{{step.action}}</p>
-                                             </div>
-                                             {% if step.value %}
-                                             <div class="col-md-6">
-                                                 <h5 class="media-heading">Value</h5>
-                                                 <p class="text-muted">{{step.value}}</p>
-                                             </div>
-                                             {% endif %}
-                                            {% for attr, value in step.element.attributes.items %}
-                                             <div class="col-md-6">
-                                                 <h5 class="media-heading">{{attr}}</h5>
-                                                 <p class="text-muted">{{value}}</p>
-                                             </div>
-                                            {% endfor %}
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </li>
-                         {% endfor %}
+                    {% if error.data.visitor %}
+                        {% include 'project/_visitor_track.html' %}
+                    {% else %}
+                        {% include 'project/_console_track.html' %}
+                    {% endif %}
                      </ul>
                  </div>
             </div>
@@ -184,6 +153,54 @@
         </div>
     </div>
     <!-- Libraries -->
+    <!-- Network -->
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-heading clearfix">
+                <h3 class="widget-title pull-left">Network</h3>
+                <ul class="widget-tools pull-right list-inline">
+                    <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
+                </ul>
+            </div>
+            <div class="widget-body">
+                {% for network in error.data.network %}
+                    <div class="panel panel-{% ifequal network.statusCode 200 %}success{% else %}danger{% endifequal %} mb-0">
+                         <div class="panel-heading">
+                         {{network.url}}
+                         </div>
+                         <div class="panel-body">
+                             <div class="row">
+                            <div class="col-md-6">
+                                 <h5 class="media-heading">Completed on</h5>
+                                 <p class="text-muted">{{network.completedOn}}</p>
+                             </div>
+                             <div class="col-md-6">
+                                 <h5 class="media-heading">Method</h5>
+                                 <p class="text-muted">{{network.method}}</p>
+                             </div>
+                            
+                             <div class="col-md-6">
+                                 <h5 class="media-heading">Status code</h5>
+                                 <p class="text-muted">{{network.statusCode}}</p>
+                             </div>
+                             <div class="col-md-6">
+                                 <h5 class="media-heading">Status text</h5>
+                                 <p class="text-muted">{{network.statusText}}</p>
+                             </div>
+                             <div class="col-md-6">
+                                 <h5 class="media-heading">Started on</h5>
+                                 <p class="text-muted">{{network.startedOn}}</p>
+                             </div>
+                                
+                             </div>
+                         </div>
+                     </div>
+                  
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Network -->
     </div>
     <!-- General information -->
 
