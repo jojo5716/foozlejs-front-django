@@ -55,13 +55,14 @@ class HomeProject(TemplateView):
         else:
             urls[url]['unresolved'] += 1
 
+
 class RecentProject(TemplateView):
     template_name = 'project/recent.html'
 
     def get_context_data(self, **kwargs):
         context = super(RecentProject, self).get_context_data()
 
-        context["errors"] = Error.objects.filter(project=1)
+        context["errors"] = Error.objects.filter(project=kwargs["id_project"]).order_by('-id')
 
         return context
 

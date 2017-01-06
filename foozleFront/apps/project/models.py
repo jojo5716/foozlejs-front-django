@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import httpagentparser
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -37,3 +38,11 @@ class Error(models.Model):
 
     def pm_or_am(self):
         return self.timestamp.strftime("%p")
+
+    def os(self):
+        os = httpagentparser.detect(self.data['environment']['userAgent'])
+        return os['os']['name']
+
+    def browser(self):
+        os = httpagentparser.detect(self.data['environment']['userAgent'])
+        return os['browser']['name']

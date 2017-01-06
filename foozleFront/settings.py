@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'foozleFront.apps',
     'foozleFront.apps.dashboard',
     'foozleFront.apps.project',
 ]
