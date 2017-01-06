@@ -5,7 +5,6 @@
     <title>FoozleJS</title>
     <!-- PACE-->
     <link rel="stylesheet" type="text/css" href="/static/css/libs/pace-theme-flash.css">
-    <script type="text/javascript" src="/static/js/libs/pace.min.js"></script>
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" type="text/css" href="/static/css/libs/bootstrap.min.css">
     <!-- Fonts-->
@@ -47,10 +46,10 @@
 
         <div class="main-container">
             <!-- Main Sidebar start-->
-            <aside  class="main-sidebar _mCS_2 mCS-autoHide">
+            <aside  data-mcs-theme="minimal-dark" class="main-sidebar mCustomScrollbar _mCS_2 mCS-autoHide">
                 <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" >
-                    <div id="mCSB_2_container" class="mCSB_container"  dir="ltr">
-
+                    <div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+                        {% if project %}
                         <ul class="list-unstyled navigation mb-0">
                             <li class="sidebar-category">Menu</li>
 
@@ -99,7 +98,7 @@
                                 </a>
                             </li>
                         </ul>
-
+                        {% endif %}
                     </div>
                 </div>
             </aside>
@@ -120,6 +119,8 @@
 
     <!-- jQuery-->
     <script type="text/javascript" src="/static/js/libs/jquery.min.js"></script>
+    <!-- Pace-->
+    <script type="text/javascript" src="/static/js/libs/pace.min.js"></script>
     <!-- Bootstrap JavaScript-->
     <script type="text/javascript" src="/static/js/libs/bootstrap.min.js"></script>
     <!-- Animo.js-->
