@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>FoozleJS - Login</title>
+        <!-- PACE-->
+        <link rel="stylesheet" type="text/css" href="/static/css/libs/pace-theme-flash.css">
+        <script type="text/javascript" src="/static/js/libs/pace.min.js"></script>
+        <!-- Bootstrap CSS-->
+        <link rel="stylesheet" type="text/css" href="/static/css/libs/bootstrap.min.css">
+        <!-- Fonts-->
+        <link rel="stylesheet" type="text/css" href="/static/css/libs/themify-icons.css">
+        <!-- Primary Style-->
+        <link rel="stylesheet" type="text/css" href="/static/css/libs/first-layout.css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file://--> 
+        <!--[if lt IE 9]>
+        <script type="text/javascript" src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script type="text/javascript" src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body style="background-image: url(/static/img/login-background.jpg)" class="body-bg-full">
+        <div class="container page-container">
+          <div class="page-content">
+            <div class="logo">
+                <a href="#" class="brand pull-left">
+                <h1>FoozleJS</h1>
+            </a>
+            </div>
+            {% if form.errors.password %}
+                <p>{{ form.errors.password }}</p>
+            {% endif %}
+            <form method="POST" action="." class="form-horizontal">
+            {% csrf_token %}
+              <div class="form-group">
+                <div class="col-xs-12">
+                  <input type="text" placeholder="Username" name="username" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-12">
+                  <input type="password" placeholder="Password" name="password" class="form-control">
+                </div>
+              </div>
+              <button type="submit" class="btn-lg btn btn-primary btn-rounded btn-block">Sign in</button>
+            </form>            
+          </div>
+        </div>
+        <!-- jQuery-->
+        <script type="text/javascript" src="/static/js/libs/jquery.min.js"></script>
+           <!-- Bootstrap JavaScript-->
+        <script type="text/javascript" src="/static/js/libs/bootstrap.min.js"></script>
+        <!-- Custom JS-->
+        <script type="text/javascript" src="/static/js/libs/extra-demo.js"></script>
+  </body>
+</html>

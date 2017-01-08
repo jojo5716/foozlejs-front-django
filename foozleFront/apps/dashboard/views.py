@@ -1,6 +1,9 @@
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, FormView
+from django.contrib.auth import authenticate, login
+from django import forms
 
 from foozleFront.apps.project.models import Project
+from .forms import LoginForm
 
 
 class Home(TemplateView):
@@ -12,9 +15,18 @@ class Home(TemplateView):
         return context
 
 
-class Login(TemplateView):
+class Login(FormView):
     template_name = 'login.html'
+    form_class = LoginForm
+    success_url = '/'
 
+    def form_valid(self, form):
+    	username = form.cleaned_data["username"]
+    	password = form.cleaned_data["password"]
+    	user = authenticate(username=username, password=password)
+    	login(self.request, user)
+
+        return super(Login, self).form_valid(form)
 
 class Logout(View):
     pass
