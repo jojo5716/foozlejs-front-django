@@ -1,9 +1,9 @@
 from django.views.generic import TemplateView, View, FormView
-from django.contrib.auth import authenticate, login
-from django import forms
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect
 
 from foozleFront.apps.project.models import Project
-from .forms import LoginForm
+from .forms import LoginForm, ChangePasswordForm
 
 
 class Home(TemplateView):
@@ -21,12 +21,27 @@ class Login(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-    	username = form.cleaned_data["username"]
-    	password = form.cleaned_data["password"]
-    	user = authenticate(username=username, password=password)
-    	login(self.request, user)
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data["password"]
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
 
         return super(Login, self).form_valid(form)
 
-class Logout(View):
-    pass
+
+def logout_view(request):
+    logout(request)
+    return redirect("/")
+
+
+class ChangePassword(FormView):
+    template_name = 'change_password.html'
+    form_class = ChangePasswordForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        password = form.cleaned_data["password"]
+        user = self.request.user
+        user.set_password(password)
+        user.save()
+        return super(ChangePassword, self).form_valid(form)

@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import uuid
 import httpagentparser
 from django.db import models
 from django.contrib.auth.models import User
@@ -8,12 +9,12 @@ from django.contrib.postgres.fields import JSONField
 
 
 class Project(models.Model):
-    token = models.CharField(max_length=36, unique=True, editable=False)
+    token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     name = models.CharField("Name", max_length=100)
     active = models.BooleanField("Active", default=True)
 
     def __unicode__(self):
-        return self.name
+        return "%s (%s)" % (self.name, self.token)
 
     def errors_resolved(self):
         return self.error_set.filter(resolved=True).count()

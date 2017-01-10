@@ -36,17 +36,30 @@
                 </a>
             {% endif %}
             <ul class="notification-bar list-inline pull-right">
-                <li class="dropdown visible-lg visible-md"><a id="dropdownMenu2" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle header-icon lh-1 pt-15 pb-15">
-                    <div class="media mt-0">
-                        <div class="media-left avatar">
-                        <i class="ti-user"></i>
+                <li class="dropdown visible-lg visible-md">
+                    <a id="dropdownMenu2" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle header-icon lh-1 pt-15 pb-15">
+                        <div class="media mt-0">
+                            <div class="media-left avatar">
+                                <i class="ti-user"></i>
+                            </div>
+                          <div class="media-right media-middle pl-0">
+                              <p class="fs-12 mb-0">Hi {{request.user}}</p>
+                          </div>
                         </div>
-                      <div class="media-right media-middle pl-0">
-                        <p class="fs-12 mb-0">Hi {{request.user}}</p>
-                      </div>
-                    </div></a>
+                    </a>
                   <ul aria-labelledby="dropdownMenu2" class="dropdown-menu fs-12 fadeInDown animated" style="-webkit-animation-duration: 0.2s; animation-duration: 0.2s; -webkit-animation-delay: 0s; animation-delay: 0s; -webkit-animation-timing-function: linear; animation-timing-function: linear; animation-iteration-count: 1; -webkit-animation-iteration-count: 1;">
-                    <li><a href="login-v2.html"><i class="ti-power-off mr-5"></i> Logout</a></li>
+                    <li>
+                        <a href="{% url 'change_password' %}">
+                            <i class="ti-power-off mr-5"></i>
+                            Change password
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}">
+                            <i class="ti-power-off mr-5"></i>
+                            Logout
+                        </a>
+                    </li>
                   </ul>
                 </li>
             </ul>
