@@ -1,11 +1,12 @@
 import json
 import httpagentparser
-from datetime import datetime
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.db.models import Max, Min
 from .models import Project, Error
 from ..utils.charts import chart_by_top_browser
+from ..utils.browser import get_browser_from_useragent
+
 
 class HomeProject(TemplateView):
     template_name = 'project/dashboard.html'
@@ -37,7 +38,7 @@ class HomeProject(TemplateView):
         return browsers, urls
 
     def get_errors_by_browser(self, error, dic):
-        browser = httpagentparser.simple_detect(error.data['environment']['userAgent'])[1]
+        browser = get_browser_from_useragent(error.data['environment']['userAgent'])
 
         if browser not in dic:
             dic[browser] = 0
@@ -107,7 +108,7 @@ class UrlProject(TemplateView):
             url = error.data["url"]
 
             if url not in data:
-                data[url] = { "errors": 0, "lastView": error.timestamp}
+                data[url] = {"errors": 0, "lastView": error.timestamp}
 
             data[url]["errors"] += 1
 
@@ -171,6 +172,54 @@ def CaptureError(request):
         response["Access-Control-Allow-Headers"] = "*"
 
         return response
+
+
+class BrowserProject(TemplateView):
+    template_name = 'project/browser.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(BrowserProject, self).get_context_data()
+
+        errors = Error.objects.filter(project=kwargs["id_project"]).order_by('-id')
+        context["browsers"] = self.get_browsers(errors)
+        context['project'] = get_project_by_id(kwargs['id_project'])
+        context['errors'] = self.get_errors(errors)
+
+        return context
+
+    def get_browsers(self, errors):
+        data = {}
+        for error in errors:
+            browser = get_browser_from_useragent(error.data['environment']['userAgent'])
+
+            if browser not in data:
+                data[browser] = 0
+
+            data[browser] += 1
+
+        return data
+
+    def get_errors(self, errors):
+        data = {}
+        errors_count = {}
+
+        for error in errors:
+            browser = get_browser_from_useragent(error.data['environment']['userAgent'])
+            message = error.data["message"]
+
+            if message not in data:
+                data[message] = []
+                errors_count[browser] = 0
+
+            errors_count[browser] += 1
+
+            data[message].append({
+                "browser": browser,
+                "errors": errors_count
+            })
+
+        return data
+
 
 def get_project_by_id(project_id, active=True):
     try:

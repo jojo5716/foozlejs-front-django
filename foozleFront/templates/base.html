@@ -27,7 +27,7 @@
         </div>
         <!-- Header start-->
         <header>
-            <a href="#" class="brand pull-left">
+            <a href="{% url 'home' %}" class="brand pull-left">
                 <h1>FoozleJS</h1>
             </a>
             {% if project %}
@@ -83,12 +83,13 @@
                                 </a>
                             </li>
                             <li class="panel">
-                                <a href="#" class="collapsed">
+                                <a href="{% url 'project_browser' project.id%}" class="collapsed">
                                     <i class="ti-shopping-cart"></i>
                                     <span class="sidebar-title">Browser</span>
                                 </a>
                             </li>
-                            <li class="panel">
+
+                            <!--  <li class="panel">
                                 <a href="#" class="collapsed">
                                     <i class="ti-shopping-cart"></i>
                                     <span class="sidebar-title">User</span>
@@ -105,7 +106,7 @@
                                     <i class="ti-shopping-cart"></i>
                                     <span class="sidebar-title">Daily</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                         {% endif %}
                     </div>
