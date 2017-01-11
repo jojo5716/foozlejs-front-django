@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 
 
 class LoginForm(forms.Form):
@@ -29,3 +29,7 @@ class ChangePasswordForm(forms.Form):
             raise forms.ValidationError("Passwords don't match")
 
         return self.cleaned_data
+
+
+class NewProjectForm(forms.Form):
+    name = forms.CharField()

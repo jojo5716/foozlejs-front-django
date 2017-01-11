@@ -6,41 +6,71 @@
         <div class="col-sm-6">
             <h4 class="mt-0 mb-5">Projects</h4>
             <p class="text-muted mb-0">Select a project</p>
-            <!--<h4 class="mt-0 mb-5">Dashboard</h4>-->
-            <!--<ol class="breadcrumb mb-0">-->
-                <!--<li><a href="#">Login</a></li>-->
-                <!--<li class="active">Dashboard</li>-->
-            <!--</ol>-->
+        </div>
+
+        <div class="col-sm-6">
+            <button
+                    type="button"
+                    class="btn btn-raised btn-success"
+                    data-toggle="modal"
+                    data-target=".bs-example-modal-lg">
+                + New project
+            </button>
         </div>
     </div>
 </div>
 {% endblock breadcrumbs%}
 
 {% block content %}
-
-<div class="col-md-3 col-sm-6">
-    {% for project in projects %}
-    <div class="widget text-center">
-        <a href="{% url 'project_home' project.id %}">
-            <div class="widget-body">
-                <div class="fs-36 fw-600 mb-20 counter">{{project.name}}</div>
-                <div id="esp-comment" data-percent="75"  class="easy-pie-chart fs-36">
-                    <i class="ti-comment-alt text-muted"></i>
-                    <canvas height="140" width="140"></canvas>
-                </div>
-                <div class="clearfix mt-20">
-                    <div class="pull-left">
-                        <div class="fs-12">Resolved issues</div>
-                        <div class="text-success">{{project.errors_resolved}}</div>
+{% for project in projects %}
+    <div class="col-md-3 col-sm-6">
+        <div class="widget text-center">
+            <a href="{% url 'project_home' project.id %}">
+                <div class="widget-body">
+                    <div class="fs-36 fw-600 mb-20 counter">{{project.name}}</div>
+                    <div id="esp-comment" data-percent="75"  class="easy-pie-chart fs-36">
+                        <i class="ti-comment-alt text-muted"></i>
+                        <canvas height="140" width="140"></canvas>
                     </div>
-                    <div class="pull-right">
-                        <div class="fs-12">Unresolved Issues</div>
-                        <div class="text-danger">{{project.errors_unresolved}}</div>
+                    <div class="clearfix mt-20">
+                        <div class="pull-left">
+                            <div class="fs-12">Resolved issues</div>
+                            <div class="text-success">{{project.errors_resolved}}</div>
+                        </div>
+                        <div class="pull-right">
+                            <div class="fs-12">Unresolved Issues</div>
+                            <div class="text-danger">{{project.errors_unresolved}}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-    {% endfor %}
+{% endfor %}
+
+<div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg" style="display: none;">
+    <div role="document" class="modal-dialog modal-lg">
+        <div class="modal-content">
+             <form action="." method="POST">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                    <h4 id="myLargeModalLabel" class="modal-title">Create new project</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="." method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input id="name" name="name" type="text" class="form-control">
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-raised btn-default">Close</button>
+                    <button type="submit" class="btn btn-raised btn-black">Save changes</button>
+                </div>
+             </form>
+        </div>
+    </div>
 </div>
 {% endblock content %}

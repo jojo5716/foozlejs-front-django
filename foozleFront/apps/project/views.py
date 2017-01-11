@@ -1,5 +1,4 @@
 import json
-import httpagentparser
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.db.models import Max, Min
@@ -25,7 +24,6 @@ class HomeProject(TemplateView):
         context['chart_urls'] = chart_urls
 
         return context
-
 
     def get_charts(self):
         browsers =  {}
