@@ -151,8 +151,6 @@ class UrlDetailProject(TemplateView):
 def CaptureError(request):
     token = request.GET.get('token')
     success = True
-    print "=" * 90
-    print request
     if request.body and token:
         try:
             project = Project.objects.get(token=token, active=True)

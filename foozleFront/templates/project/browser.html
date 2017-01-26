@@ -26,6 +26,8 @@
                 </ul>
             </div>
             <div class="widget-body">
+                {{browsers}}
+
                 <table id="product-list" style="width: 100%;" class="table table-hover dt-responsive nowrap dataTable no-footer dtr-inline" >
                     <thead>
                         <tr role="row">
@@ -39,7 +41,7 @@
                         <tr role="row" class="odd">
                             <td class="sorting_1">{{error.timestamp}}</td>
                             <td>
-                                <a href="{% url 'project_issue_detail' project.id error.id %}">{{error.data.message}}</a>
+                                <a href="">{{error.data.message}}</a>
                             </td>
                             <td class="text-right">{{error.data.browser}}</td>
                             <td class="text-center">
