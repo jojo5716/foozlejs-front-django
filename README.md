@@ -11,3 +11,4 @@ Django application for FoozleJS library. FoozleJS front application, it's a Djan
 * python manage.py runserver
 
 ![alt tag](example/foozle-dashboard.png)
+![alt tag](example/foozle-dashboard-project.png)
