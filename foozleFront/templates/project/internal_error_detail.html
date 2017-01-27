@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load time %}
+
+
+{% block breadcrumbs %}
+<div class="page-header clearfix">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="mt-0 mb-5">Dashboard</h4>
+            <ol class="breadcrumb mb-0">
+                <li><a href="#">Login</a></li>
+                <li><a href="#">{{project.name}} project</a></li>
+                <li class="active">URL</li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs%}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="widget">
+            <div class="widget-heading clearfix">
+                <h3 class="widget-title pull-left">General information</h3>
+                <ul class="widget-tools pull-right list-inline">
+                    <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget no-border">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="left"><strong>Timestamp</strong></td>
+                                <td class="right">{{error.timestamp}}</td>
+                            </tr>
+                            <tr>
+                                <td class="left"><strong>Project token</strong></td>
+                                <td class="right">{{error.data.token.0}}</td>
+                            </tr>
+                            <tr>
+                                <td class="left"><strong>URL</strong></td>
+                                <td class="right">{{error.data.url.0}}</td>
+                            </tr>
+                           <tr>
+                                <td class="left"><strong>Message</strong></td>
+                                <td class="right">{{error.data.msg.0}}</td>
+                            </tr>
+                            <tr>
+                                <td class="left"><strong>Foozle version</strong></td>
+                                <td class="right">{{error.data.v.0}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <pre>{{error.data.stack.0}}</pre>
+    </div>
+</div>
+{% endblock content %}

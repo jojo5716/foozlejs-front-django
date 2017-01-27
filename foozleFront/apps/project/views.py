@@ -1,8 +1,11 @@
 import json
+
+from PIL import Image
+
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.db.models import Max, Min
-from .models import Project, Error
+from .models import Project, Error, InternalErrors
 from ..utils.charts import chart_by_top_browser
 from ..utils.browser import get_browser_from_useragent
 
@@ -223,3 +226,45 @@ def get_project_by_id(project_id, active=True):
         return Project.objects.get(id=project_id, active=active)
     except Project.DoesNotExist:
         return None
+
+
+def internal_api_error(request):
+    token = request.GET.get('token')
+
+    response = HttpResponse(content_type="image/jpeg")
+    img = Image.new('RGBA', (1, 1), (255, 0, 0, 0))
+    img.save(response, 'JPEG')
+
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "*"
+
+    if request.GET and token:
+        error = InternalErrors(data=dict(request.GET))
+        error.save()
+
+    return response
+
+
+class InternalErrorView(TemplateView):
+    template_name = "project/internal_errors.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(InternalErrorView, self).get_context_data()
+        context["errors"] = InternalErrors.objects.all().order_by('-id')
+        return context
+
+
+class InternalErrorDetailView(TemplateView):
+    template_name = "project/internal_error_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(InternalErrorDetailView, self).get_context_data()
+
+        try:
+            context["error"] = InternalErrors.objects.get(id=kwargs['id_error'])
+        except Exception:
+            pass
+
+        return context

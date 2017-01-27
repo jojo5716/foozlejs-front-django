@@ -47,3 +47,9 @@ class Error(models.Model):
     def browser(self):
         os = httpagentparser.detect(self.data['environment']['userAgent'])
         return os['browser']['name']
+
+
+class InternalErrors(models.Model):
+    timestamp = models.DateTimeField(auto_now_add=True)
+    data = JSONField(default=dict, blank=True, null=True)
+

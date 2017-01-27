@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block breadcrumbs %}
+<div class="page-header clearfix">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="mt-0 mb-5">Dashboard</h4>
+            <ol class="breadcrumb mb-0">
+                <li><a href="#">Login</a></li>
+                <li><a href="#">{{project.name}} project</a></li>
+                <li class="active">Recent issues</li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs%}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-heading clearfix">
+                <h3 class="widget-title pull-left">
+                    <i class="ti-time"></i> Recent Issues
+                </h3>
+                <ul class="widget-tools pull-right list-inline">
+                    <li><a href="javascript:;" class="widget-collapse"><i class="ti-angle-up"></i></a></li>
+                </ul>
+            </div>
+            <div class="widget-body">
+                <table id="product-list" style="width: 100%;" class="table table-hover dt-responsive nowrap dataTable no-footer dtr-inline" >
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_asc" rowspan="1" colspan="1" >Timestamp</th>
+                            <th class="sorting" rowspan="1" colspan="1"  >Message</th>
+                            <th class="text-right sorting" rowspan="1" colspan="1" >URL</th>
+                    </thead>
+                    <tbody>
+                        {% for error in errors %}
+                        <tr role="row" class="odd">
+                            <td class="sorting_1">{{error.timestamp}}</td>
+                            <td>
+                                <a href="{% url 'foozle_internal_error_detail' error.id %}">{{error.data.msg.0}}</a>
+                            </td>
+                            <td class="text-right">{{error.data.url.0}}</td>
+                            <td class="text-center">
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

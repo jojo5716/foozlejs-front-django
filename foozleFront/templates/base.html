@@ -71,14 +71,29 @@
             <aside  data-mcs-theme="minimal-dark" class="main-sidebar mCustomScrollbar _mCS_2 mCS-autoHide">
                 <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" >
                     <div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
-                        {% if project %}
+
                         <ul class="list-unstyled navigation mb-0">
+                            <li class="sidebar-category">Administration</li>
+                             <li class="panel">
+                                <a href="{% url 'home' %}" class="collapsed">
+                                    <i class="ti-home"></i>
+                                    <span class="sidebar-title">Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li class="panel">
+                                <a href="{% url 'foozle_internal_error_list' %}" class="collapsed">
+                                    <i class="ti-pulse"></i>
+                                    <span class="sidebar-title">Internal errors</span>
+                                </a>
+                            </li>
+                            {% if project %}
                             <li class="sidebar-category">Menu</li>
 
                             <li class="panel">
                                 <a href="{% url 'project_home' project.id %}" class="bubble collapsed">
                                     <i class="ti-home"></i>
-                                    <span class="sidebar-title">Dashboard</span>
+                                    <span class="sidebar-title">Project dashboard</span>
                                 </a>
                             </li>
 
@@ -95,9 +110,10 @@
                                     <span class="sidebar-title">URL</span>
                                 </a>
                             </li>
-
-                        </ul>
                         {% endif %}
+                        </ul>
+
+
                     </div>
                 </div>
             </aside>

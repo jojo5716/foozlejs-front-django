@@ -1,3 +1,6 @@
+import json
+
+from django.http import HttpResponse
 from django.views.generic import TemplateView, FormView
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
