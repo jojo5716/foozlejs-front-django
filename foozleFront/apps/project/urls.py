@@ -11,6 +11,7 @@ from .views import (HomeProject,
                     CaptureError,
                     InternalErrorView,
                     InternalErrorDetailView,
+                    HowToInstall,
                     internal_api_error)
 
 urlpatterns = [
@@ -20,6 +21,7 @@ urlpatterns = [
     url(r'^(?P<id_project>[0-9]+)/url/$', login_required(UrlProject.as_view()), name="project_url"),
     url(r'^(?P<id_project>[0-9]+)/url/detail/$', login_required(UrlDetailProject.as_view()), name="project_url_detail"),
     url(r'^(?P<id_project>[0-9]+)/browsers/$', login_required(BrowserProject.as_view()), name="project_browser"),
+    url(r'^(?P<id_project>[0-9]+)/install/$', login_required(HowToInstall.as_view()), name="project_install"),
     url(r'^capture$', csrf_exempt(CaptureError)),
     url(r'^internal/error/$', internal_api_error, name="foozle_internal_error"),
     url(r'^internal/errors/list$', login_required(InternalErrorView.as_view()), name="foozle_internal_error_list"),

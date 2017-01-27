@@ -1,6 +1,7 @@
 import json
 
 from PIL import Image
+from django import http
 
 from django.http import HttpResponse
 from django.views.generic import TemplateView
@@ -267,4 +268,16 @@ class InternalErrorDetailView(TemplateView):
         except Exception:
             pass
 
+        return context
+
+
+class HowToInstall(TemplateView):
+    template_name = "project/install.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HowToInstall, self).get_context_data()
+        try:
+            context["project"] = Project.objects.get(id=kwargs["id_project"])
+        except Project.DoesNotExist:
+            raise http.Http404()
         return context

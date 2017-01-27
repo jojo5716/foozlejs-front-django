@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="/static/css/libs/bootstrap-progressbar-3.3.4.min.css">
     <!-- Primary Style-->
     <link rel="stylesheet" type="text/css" href="/static/css/libs/first-layout.css">
+
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/7.0/styles/default.min.css">
   </head>
   <body data-sidebar-color="sidebar-light" class="sidebar-light  pace-done header-green">
         <div class="pace  pace-inactive">
@@ -110,6 +112,13 @@
                                     <span class="sidebar-title">URL</span>
                                 </a>
                             </li>
+
+                            <li class="panel">
+                                <a href="javascript:void(0)" class="collapsed" data-toggle="modal" data-target=".bs-example-modal-lg">
+                                    <i class="ti-shopping-cart"></i>
+                                    <span class="sidebar-title">How to install</span>
+                                </a>
+                            </li>
                         {% endif %}
                         </ul>
 
@@ -132,6 +141,29 @@
             </div>
         </div>
 
+        <!-- Modal: How to install-->
+
+        <div tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" class="modal fade bs-example-modal-lg" style="display: none;">
+            <div role="document" class="modal-dialog modal-lg">
+                <div class="modal-content">
+                     <form action="." method="POST">
+                        <div class="modal-header">
+                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                            <h4 id="myLargeModalLabel" class="modal-title">How to install</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Copy and paste</p>
+                            <pre class="javascript">
+                                <code>&#x3C;script type=&#x22;text/javascript&#x22; src=&#x22;/path/to/file/index.min.js&#x22;&#x3E;&#x3C;/script&#x3E;</code>
+                                <code>window._foozlejs = {
+  token: '{{project.token}}'
+};</code>
+                            </pre>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal: How to install-->
     <!-- jQuery-->
     <script type="text/javascript" src="/static/js/libs/jquery.min.js"></script>
     <!-- Pace-->
@@ -144,6 +176,9 @@
     <script type="text/javascript" src="/static/js/libs/bootstrap-progressbar.min.js"></script>
     <!-- jQuery Easy Pie Chart-->
     <script type="text/javascript" src="/static/js/libs/jquery.easypiechart.min.js"></script>
+    <script src="http://yandex.st/highlightjs/7.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
     <!-- Custom JS-->
     <script type="text/javascript" src="/static/js/libs/app.js"></script>
     <script type="text/javascript" src="/static/js/libs/demo.js"></script>
