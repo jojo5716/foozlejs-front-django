@@ -160,7 +160,7 @@ def CaptureError(request):
         try:
             project = Project.objects.get(token=token, active=True)
         except Project.DoesNotExist:
-            raise
+            raise http.Http404()
         else:
             success = True
             error = Error()
