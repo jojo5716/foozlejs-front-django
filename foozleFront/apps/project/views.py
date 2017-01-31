@@ -154,25 +154,27 @@ class UrlDetailProject(TemplateView):
 
 def CaptureError(request):
     token = request.GET.get('token')
-    success = True
+    success = False
+
     if request.body and token:
         try:
             project = Project.objects.get(token=token, active=True)
         except Project.DoesNotExist:
             raise
         else:
+            success = True
             error = Error()
             error.project = project
             error.data = json.loads(request.body)
             error.save()
 
-        response = HttpResponse(json.dumps({"success": success}))
-        response["Access-Control-Allow-Origin"] = "*"
-        response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-        response["Access-Control-Max-Age"] = "1000"
-        response["Access-Control-Allow-Headers"] = "*"
+    response = HttpResponse(json.dumps({"success": success}))
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "*"
 
-        return response
+    return response
 
 
 class BrowserProject(TemplateView):
