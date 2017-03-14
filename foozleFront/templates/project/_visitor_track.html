@@ -1,6 +1,7 @@
 {% load time %}
  
  {% for step in error.data.visitor %}
+
      <li class="timeline-item">
          <div class="timeline-time">
              <div class="fs-30 fw-500 {% if forloop.last %}text-danger{%else%}text-success{%endif%}">{{step.timestamp|hour}}</div>
@@ -18,12 +19,13 @@
                              <h5 class="media-heading">Action</h5>
                              <p class="text-muted">{{step.action}}</p>
                          </div>
-                         {% if step.value %}
+                         {% if step.element.value %}
                          <div class="col-md-6">
                              <h5 class="media-heading">Value</h5>
-                             <p class="text-muted">{{step.value}}</p>
+                             <p class="text-muted">{{step.element.value}}</p>
                          </div>
                          {% endif %}
+
                         {% for attr, value in step.element.attributes.items %}
                          <div class="col-md-6">
                              <h5 class="media-heading">{{attr}}</h5>

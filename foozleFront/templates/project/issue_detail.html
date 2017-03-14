@@ -17,7 +17,7 @@
 {% endblock breadcrumbs%}
 
 {% block content %}
-<pre>{{error.data.stack}}</pre>
+<pre>{% if error.data.stack %}{{error.data.stack}} {% else %} {{error.data.message}}{% endif %}</pre>
 <div class="row">
     <div class="col-md-7">
         <div class="widget">
@@ -178,7 +178,7 @@
                                  <h5 class="media-heading">Method</h5>
                                  <p class="text-muted">{{network.method}}</p>
                              </div>
-                            
+
                              <div class="col-md-6">
                                  <h5 class="media-heading">Status code</h5>
                                  <p class="text-muted">{{network.statusCode}}</p>
@@ -191,11 +191,11 @@
                                  <h5 class="media-heading">Started on</h5>
                                  <p class="text-muted">{{network.startedOn}}</p>
                              </div>
-                                
+
                              </div>
                          </div>
                      </div>
-                  
+
                 {% endfor %}
             </div>
         </div>
